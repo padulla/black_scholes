@@ -2,31 +2,31 @@
 import numpy as np
 import pandas as pd
 
-
-import sys
-sys.path.append('C:\\Users\\leand\\OneDrive\\Documentos\\GitHub\\padulla\\black_scholes')
-
 from utils import *
-import Call
-import Put
+import Option
 
-FIXED_RATE =  -3.863/ 100   #3.40 / 100 
+from scipy.stats import norm
+
+FIXED_RATE = 3.8470 / 100 # (1.6 - 3.98) / 100
 NOTIONAL = - 50_000_000
+NOTIONAL = 100 
 
 def main():
-    data = pd.read_excel("C:\\Users\\leand\\OneDrive\\Documentos\\GitHub\\padulla\\black_scholes\\Pasta1.xlsx", header = 1,engine='openpyxl').iloc[0]
-    params = excel.extract_option_params_from_excel(data, FIXED_RATE)
+#    data = pd.read_excel("Pasta1.xlsx", header = 1, engine = "openpyxl").iloc[0]
+#    params = excel.extract_option_params(data, FIXED_RATE)
+#    p = Option.Put(**params)
+#    pdel = p.delta()
 
-    #c = Call.Call(**params)
-    p = Put.Put(**params)
-    print(params)
-    print("Delta = {:,.2f}".format(p.delta()))
-    print("Gamma = {:,.2f}".format(p.gamma()))
-    print("$Gamma_v2 = {:,.2f}".format(p.dollar_gamma(p.S)))
-    print("$Gamma = {:,.2f}".format(p.dollar_gamma(NOTIONAL)))
+    params = dict()
+    params['S'] = 20.16
+    params['K'] = 20.50
+    params['T'] = 12 / 361
+    params['v'] = 12.87 / 100
+    params['r'] = 3.847 / 100
+    params['q'] = 0
 
+    p = Option.Put(**params)
+
+    print(p.greeks())
 
 if __name__ == "__main__": main()
-
-
-
