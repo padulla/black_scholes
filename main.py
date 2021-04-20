@@ -32,7 +32,7 @@ def main():
     params['r'] = 3.847 / 100
     params['q'] = 0
     
-    oparams = params.copy()
+    params = params.copy()
     params = make_forward(params)
 
     p1 = Option.Put(**params)
